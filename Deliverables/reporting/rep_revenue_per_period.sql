@@ -32,39 +32,56 @@ payments as (
   on p.rental_id = cri.rental_id
 )
 ,
--- choose the relevant reporting dates,per project instructions. day ,week and year
+-- choose relevant reporting dates (day, week, year) per project instructions
 reporting_dates as(
   select *
   from spiritual-hour-458020-c6.reporting_db.reporting_periods_table
   where true
     and lower(reporting_period) in ('day','week','year')
+    and reporting_date between date '2015-01-01' and current_date
 )
 ,
+--calculate the revenue per reporting date
+-- we could use dynamic grouping here if more data is true
 revenue_per_period as (
   select
     'Day' as reporting_period
     ,date(date_trunc(payments.payment_date,day)) as reporting_date
-    ,coalesce(sum(payment_amount)) as total_revenue
+    ,sum(payment_amount) as total_revenue
     from payments
     group by 1,2
   union all
     select
     'Month' as reporting_period
     ,date(date_trunc(payments.payment_date,month)) as reporting_date
-    ,coalesce(sum(payment_amount)) as total_revenue
+    ,sum(payment_amount) as total_revenue
     from payments
     group by 1,2
   union all
     select
     'Year' as reporting_period
     ,date(date_trunc(payments.payment_date,year)) as reporting_date
-    ,coalesce(sum(payment_amount)) as total_revenue
+    ,sum(payment_amount) as total_revenue
     from payments
     group by 1,2
+)
+,
+-- join the total revenue table with the reporting dates we have in the relevant table, per projects instr, if in the reporting data of our reporting table there is
+-- no total revenue we should have zero values and not null values
+final as (
+  select 
+     rd.reporting_date
+    ,rd.reporting_period
+    ,coalesce(total_revenue,0) as total_revenue
+  from reporting_dates rd
+  left join revenue_per_period rpp
+  on rd.reporting_date = rpp.reporting_date
+  and rd.reporting_period = rpp.reporting_period
 )
 
 
 select * 
-from revenue_per_period
+from final
 order by 1,2
+
 
