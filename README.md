@@ -1,0 +1,2 @@
+# Data_Analytics_in_Modern_Corporate_Business
+Deliverables of the capstone project
