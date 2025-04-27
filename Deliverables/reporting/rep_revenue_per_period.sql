@@ -32,12 +32,12 @@ payments as (
   on p.rental_id = cri.rental_id
 )
 ,
--- choose relevant reporting dates (day, week, year) per project instructions
+-- choose relevant reporting dates (day, month, year) per project instructions
 reporting_dates as(
   select *
   from spiritual-hour-458020-c6.reporting_db.reporting_periods_table
   where true
-    and lower(reporting_period) in ('day','week','year')
+    and lower(reporting_period) in ('day','month','year')
     and reporting_date between date '2015-01-01' and current_date
 )
 ,
@@ -49,21 +49,21 @@ revenue_per_period as (
     ,date(date_trunc(payments.payment_date,day)) as reporting_date
     ,sum(payment_amount) as total_revenue
     from payments
-    group by 1,2
+    group by reporting_period,reporting_date
   union all
     select
     'Month' as reporting_period
     ,date(date_trunc(payments.payment_date,month)) as reporting_date
     ,sum(payment_amount) as total_revenue
     from payments
-    group by 1,2
+    group by reporting_period,reporting_date
   union all
     select
     'Year' as reporting_period
     ,date(date_trunc(payments.payment_date,year)) as reporting_date
     ,sum(payment_amount) as total_revenue
     from payments
-    group by 1,2
+    group by reporting_period,reporting_date
 )
 ,
 -- join the total revenue table with the reporting dates we have in the relevant table, per projects instr, if in the reporting data of our reporting table there is
@@ -77,11 +77,16 @@ final as (
   left join revenue_per_period rpp
   on rd.reporting_date = rpp.reporting_date
   and rd.reporting_period = rpp.reporting_period
+  where true
+    and lower(rd.reporting_period) in ('day','month','year')
 )
 
 
-select * 
+select
+   reporting_period
+  ,reporting_date
+  ,total_revenue
 from final
-order by 1,2
+order by reporting_period,reporting_date
 
 
