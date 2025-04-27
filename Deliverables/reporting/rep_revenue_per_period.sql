@@ -32,15 +32,6 @@ payments as (
   on p.rental_id = cri.rental_id
 )
 ,
--- choose relevant reporting dates (day, month, year) per project instructions
-reporting_dates as(
-  select *
-  from spiritual-hour-458020-c6.reporting_db.reporting_periods_table
-  where true
-    and lower(reporting_period) in ('day','month','year')
-    and reporting_date between date '2015-01-01' and current_date
-)
-,
 --calculate the revenue per reporting date
 -- we could use dynamic grouping here if more data is true
 revenue_per_period as (
@@ -64,6 +55,15 @@ revenue_per_period as (
     ,sum(payment_amount) as total_revenue
     from payments
     group by reporting_period,reporting_date
+)
+,
+-- choose relevant reporting dates (day, month, year) per project instructions
+reporting_dates as(
+  select *
+  from spiritual-hour-458020-c6.reporting_db.reporting_periods_table
+  where true
+    and lower(reporting_period) in ('day','month','year')
+    and reporting_date between date '2015-01-01' and current_date
 )
 ,
 -- join the total revenue table with the reporting dates we have in the relevant table, per projects instr, if in the reporting data of our reporting table there is
