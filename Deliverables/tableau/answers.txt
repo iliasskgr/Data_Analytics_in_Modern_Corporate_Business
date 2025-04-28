@@ -1,4 +1,5 @@
 ■ Question: What’s the % diff between May 22’ and June 22’?
--3.52 % Beginning of summer, people rented less movies. Trend continued for July. Seasonality trend, to be considered when comparing yoy.
+-3.52%: At the beginning of summer, people rented fewer movies. This downward trend continued through July, highlighting a clear seasonal pattern. Such seasonality should be considered when conducting year-over-year comparisons.
 
 ■ Question : What’s the weekday with the highest average revenue?
+Tuesday, averaging €376.15, has the highest revenue of the week. The weekly pattern suggests that on Fridays, people typically rent movies after work, resulting in the second-highest average revenue. During weekends (Saturday and Sunday), they tend to prefer other forms of entertainment. On Mondays, as they return to work and their regular routines, spending dips briefly. Then, on Tuesday, spending notably rebounds, making it the highest revenue day of the week.
