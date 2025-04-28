@@ -8,4 +8,4 @@ Tuesday, averaging €376.15, has the highest revenue of the week. The weekly pa
 569,200,204,80,178
 
 ■ Question: Which is the month with the most unique customers?
-The month with the most unique customers is July 2022.
+The month with the most unique customers is May 2022.
