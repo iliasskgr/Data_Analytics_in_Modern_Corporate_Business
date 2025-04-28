@@ -79,7 +79,8 @@ final as (
     ,rd.reporting_period
     ,coalesce(total_revenue,0) as total_revenue
   from reporting_dates rd
-  left join revenue_per_customer_and_period rpcp
+  -- left join revenue_per_customer_and_period rpcp
+  inner join revenue_per_customer_and_period rpcp
   on rd.reporting_date = rpcp.reporting_date
   and rd.reporting_period = rpcp.reporting_period
   where true
@@ -89,7 +90,8 @@ final as (
 -- casting customer id as string so i replace nulls with a message, can't leave it as int and replace nulls
 -- with zeros as the customer id = 0 might be an actual customer
 select
-   coalesce(cast (customer_id as string), "No customer rented on this date") as customer_id
+  --  coalesce(cast (customer_id as string), "No customer rented on this date") as customer_id
+   customer_id
   ,reporting_period
   ,reporting_date
   ,total_revenue
