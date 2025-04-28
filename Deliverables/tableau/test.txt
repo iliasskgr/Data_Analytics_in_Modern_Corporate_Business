@@ -1,1 +1,4 @@
+■ Question: What’s the % diff between May 22’ and June 22’?
+-3.52 % Beginning of summer, people rented less movies. Trend continued for July. Seasonality trend, to be considered when comparing yoy.
 
+■ Question : What’s the weekday with the highest average revenue?
