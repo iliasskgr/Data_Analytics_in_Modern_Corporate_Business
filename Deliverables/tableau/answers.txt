@@ -1,4 +1,4 @@
-
+Link to Tableau Public: https://public.tableau.com/app/profile/agn.agn/viz/DataAnalyticsinModernCorporateBusiness_17458119566220/Dashboard1?publish=yes
 ■ Question: What’s the % diff between May 22’ and June 22’?
 -3.52%: At the beginning of summer, people rented fewer movies. This downward trend continued through July, highlighting a clear seasonal pattern. Such seasonality should be considered when conducting year-over-year comparisons.
 
